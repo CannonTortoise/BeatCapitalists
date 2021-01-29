@@ -18,13 +18,6 @@ public class WorkersController : MonoBehaviour
     public bool isGizmosOn = false;
     public Vector4 feasibleRegion;
 
-    public float workerTimer;
-    public float countdownTimer = 2;
-
-    public int WorkStrength = 0;
-
-    public int CurrentEmployee = 0;
-
     private List<GameObject> workers = new List<GameObject>();
 
     void Awake()
@@ -37,7 +30,6 @@ public class WorkersController : MonoBehaviour
     void Start()
     {
         InitWorkers();
-        workerTimer = Time.time;
     }
 
     // Update is called once per frame
@@ -77,18 +69,6 @@ public class WorkersController : MonoBehaviour
     void UpdateWorkersPosition()
     { 
     
-    }
-
-    void UpdateTimer()
-    {
-        float t = Timer.time - workerTimer;
-        if (t >= 1)
-            ResetTimer();
-    }
-
-    void ResetTimer()
-    {
-        workerTimer = Timer.time;
     }
 
     private void OnDrawGizmos()
