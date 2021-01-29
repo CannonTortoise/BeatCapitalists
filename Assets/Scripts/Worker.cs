@@ -19,28 +19,29 @@ public class Worker : MonoBehaviour
 
     private bool        isWorking;                  // 是否被雇佣工作   
     private int         currentHP;                  // 当前HP
-    private Vector3     moveDir;                    
+    private Vector3     moveDir = Vector3.zero;                    
 
     // Start is called before the first frame update
     void Start()
     {
         int rnum = Random.Range(0, 2);
         if (Mathf.Abs(transform.position.x) < WorkersController.Instance.feasibleRegion.x &&
-            Mathf.Abs(transform.position.y) > WorkersController.Instance.feasibleRegion.w)
+            Mathf.Abs(transform.position.y) > WorkersController.Instance.feasibleRegion.y)
         {
             if (rnum == 0)
                 moveDir = Vector3.left;
             else
                 moveDir = Vector3.right;
         }
-        else if (Mathf.Abs(transform.position.y) < WorkersController.Instance.feasibleRegion.y &&
-            Mathf.Abs(transform.position.x) > WorkersController.Instance.feasibleRegion.z)
+        else if (Mathf.Abs(transform.position.x) > WorkersController.Instance.feasibleRegion.x &&
+            Mathf.Abs(transform.position.y) < WorkersController.Instance.feasibleRegion.y)
         {
             if (rnum == 0)
                 moveDir = Vector3.up;
             else
                 moveDir = Vector3.down;
         }
+        
         else if (transform.position.x > 0 && transform.position.y > 0)
         {
             if (rnum == 0)
@@ -69,7 +70,7 @@ public class Worker : MonoBehaviour
             else
                 moveDir = Vector3.right;
         }
-
+        
     }
 
     // Update is called once per frame

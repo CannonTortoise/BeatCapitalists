@@ -101,7 +101,7 @@ MonoBehaviour:
   HP: 100
   productivity: 36
   ability: 59
-  moveSpeed: 2
+  moveSpeed: 1
 --- !u!61 &8485673705565895133
 BoxCollider2D:
   m_ObjectHideFlags: 0
