@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public enum WorkerClass { 
     Rare = 0,
@@ -17,11 +19,12 @@ public class Worker : MonoBehaviour
     public int          ability = 0;                // 特殊能力
     public float        moveSpeed = 1f;
 
-    private bool        isWorking = false;          // 是否被雇佣工作
+    public bool         isWorking = false;          // 是否被雇佣工作
     private bool        isGrabbed = false;          // 是否被抓走
     private int         currentHP;                  // 当前HP
     private Vector3     moveDir = Vector3.zero;
     private float       workTimer;                  // 当前
+    public int          seat;                       // 当前座位
 
     // Start is called before the first frame update
     void Start()
@@ -72,14 +75,18 @@ public class Worker : MonoBehaviour
             else
                 moveDir = Vector3.right;
         }
-        
+
+        currentHP = HP;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isWorking && !isGrabbed) 
-            Move();
+        if (this != null)
+        {
+            if (!isWorking && !isGrabbed)
+                Move();
+        }
     }
 
     void Move()
@@ -96,16 +103,63 @@ public class Worker : MonoBehaviour
     {
         isGrabbed = false;
         isWorking = true;
-        transform.position = new Vector3(Random.Range(0f, 3f), Random.Range(0f, 3f), -2f);
+
+        seat = WorkersController.Instance.FindSeat();
+        if (seat != -1)
+        {
+            int x = seat % 5, y = seat / 5;
+            transform.position = new Vector3((-1.8f + x*0.9f), (0.9f-y*0.9f), -2f);
+            WorkersController.Instance.WorkingWorkers.Add(this);
+        }
+        else
+            Debug.Log("你妈炸了");
     }
 
-    void Work()
+    public void Work(bool click, int damage)
+        //bool是判定是否是拍一拍，金钱和damage挂钩
     {
+        if (!click)
+        {
+            currentHP -= damage;
+            checkclickdead(false);
+            GameInstance.Instance.Money += ((double)(productivity * damage));
+        }
+        else
+        {
+            currentHP -= damage;
+            checkclickdead(true);
+            GameInstance.Instance.Money += (0.9* productivity * damage);
+        }//拍一拍只有0.9的收入
+
+        Debug.Log(GameInstance.Instance.Money);
     }
 
     void BeClicked()
     {
-    
+        Work(true,10);
+        //老板拍了拍你
     }
 
+    void checkclickdead(bool click)
+    {
+        if (currentHP <= 0)
+        {
+            GameInstance.Instance.DeadEmployee++;
+            if (click)
+            {
+                GameInstance.Instance.DeadEmployeebyPYP++;
+                GameInstance.Instance.Money -= (5 * productivity);
+            }
+            WorkersController.Instance.WorkingWorkers.Remove(this);
+            WorkersController.Instance.seats.SetValue(false, seat);
+            Destroy(this.gameObject);
+
+        }
+    }
+
+    void OnMouseDown()
+    {
+        if(isWorking)
+            BeClicked();
+    }
 }

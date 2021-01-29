@@ -98,10 +98,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wname: 
   wclass: 1
-  HP: 100
-  productivity: 36
+  HP: 125
+  productivity: 4
   ability: 59
   moveSpeed: 1
+  isWorking: 0
 --- !u!61 &1238282762967349689
 BoxCollider2D:
   m_ObjectHideFlags: 0

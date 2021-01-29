@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+//using Worker;
 
 public class WorkersController : MonoBehaviour
 {
@@ -10,15 +12,27 @@ public class WorkersController : MonoBehaviour
     public int initNum = 10;
     public float moveSpeed = 1f;
 
+    public int CurrentEmployee = 0;
+    public int WorkStrength = 0;
+
     [Header("Class Settings")]
     public GameObject[] prefabsByClass;
+    //public Worker WorkingWorker;
     public int[] probabilityByClass;
 
     [Header("Gizmos")]
     public bool isGizmosOn = false;
     public Vector4 feasibleRegion;
 
+    [Header("Timer")]
+    public float WorkTimer;
+    public float Countdown = 1;
+
     private List<GameObject> workers = new List<GameObject>();
+    public List<Worker> WorkingWorkers = new List<Worker>();
+
+    [SerializeField]
+    public bool[] seats = new bool[20];
 
     void Awake()
     {
@@ -36,6 +50,7 @@ public class WorkersController : MonoBehaviour
     void Update()
     {
         UpdateWorkersPosition();
+        UpdateTimer();
     }
 
     void InitWorkers()
@@ -71,6 +86,52 @@ public class WorkersController : MonoBehaviour
     
     }
 
+    void UpdateTimer()
+    {
+        float t = Time.time - WorkTimer;
+        if (t >= Countdown)
+        {
+            WorkTimer = Time.time;
+            AssignWork();
+        }
+    }
+
+    void AssignWork()
+    {
+        for (int i = 0; i < WorkingWorkers.Count; i++)
+        {
+            if (WorkingWorkers[i].isWorking)
+            {
+                WorkingWorkers[i].Work(false, 5);
+            }
+        }
+    }
+
+    public int FindSeat()
+    {
+        int returns = 0;
+        while (returns < GameInstance.Instance.WorkSpace)
+        {
+            Debug.Log(returns);
+            if (!seats[returns])
+            {
+                seats[returns]=true;
+                return returns;
+            }
+            returns++;
+        }
+        return -1;
+    }
+
+    public void CheckSeats()
+    {
+        GameInstance.Instance.isfull = true;
+        for (int i = 0; i < GameInstance.Instance.WorkSpace; i++)
+        {
+            GameInstance.Instance.isfull &= seats[i];
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if (isGizmosOn)
@@ -84,7 +145,6 @@ public class WorkersController : MonoBehaviour
             Gizmos.DrawLine(new Vector3(-feasibleRegion.z, feasibleRegion.w), new Vector3(-feasibleRegion.z, -feasibleRegion.w));
             Gizmos.DrawLine(new Vector3(-feasibleRegion.z, -feasibleRegion.w), new Vector3(feasibleRegion.z, -feasibleRegion.w));
             Gizmos.DrawLine(new Vector3(feasibleRegion.z, -feasibleRegion.w), new Vector3(feasibleRegion.z, feasibleRegion.w));
-
         }
     }
 }
