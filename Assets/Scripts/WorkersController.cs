@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WorkersController : MonoBehaviour
 {
@@ -20,6 +21,14 @@ public class WorkersController : MonoBehaviour
 
     private List<GameObject> workers = new List<GameObject>();
 
+    public int CurrentEmployee = 0;
+    public int WorkSpace = 5;
+
+    public float WorkTimer;
+    public float CountDownSeconds = 2;
+
+    public bool Iffull = false;
+
     void Awake()
     {
         Instance = this;
@@ -30,12 +39,15 @@ public class WorkersController : MonoBehaviour
     void Start()
     {
         InitWorkers();
+        WorkTimer = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateWorkersPosition();
+        UpdateTimer(); //每两秒reset
+
     }
 
     void InitWorkers()
@@ -69,6 +81,23 @@ public class WorkersController : MonoBehaviour
     void UpdateWorkersPosition()
     { 
     
+    }
+
+    void UpdateTimer()
+    {
+        float t = Time.time - WorkTimer;
+
+        if (t >= 1)
+        {
+            resetTimer();
+            GameObject.Find("Workers").isWorking;
+            while (workers)
+        }
+    }
+    
+    void resetTimer()
+    {
+        WorkTimer = Time.time;
     }
 
     private void OnDrawGizmos()

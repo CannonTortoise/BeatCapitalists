@@ -1,20 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameInstance : MonoBehaviour
 {
     public static GameInstance Instance { get; private set; }
 
-    public int CurrentEmployee = 0;
-    public int WorkSpace = 5;
     public int Money = 0;
     public int LevelMoney = 0;
-    public float Timer = 0.0f;
-    public float LevelTime = 0.0f;
-    public bool Iffull = false;
+
+    public float LevelTime = 0;
 
     public int DeadEmployee = 0;
-    //public 
+    public int DeadEmployeebyPYP = 0;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void Awake()
+    {
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
 }

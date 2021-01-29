@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum WorkerClass { 
     Rare = 0,
@@ -13,7 +14,7 @@ public class Worker : MonoBehaviour
     public string       wname;                      // 名称
     public WorkerClass  wclass = WorkerClass.Rare;  // 级别
     public int          HP = 100;                   // 生命值
-    public int          productivity = 1;           // 生产力
+    public int          productivity = 10;           // 生产力
     public int          ability = 0;                // 特殊能力
     public float        moveSpeed = 1f;
 
@@ -21,7 +22,6 @@ public class Worker : MonoBehaviour
     private bool        isGrabbed = false;          // 是否被抓走
     private int         currentHP;                  // 当前HP
     private Vector3     moveDir = Vector3.zero;
-    private float       workTimer;                  // 当前
 
     // Start is called before the first frame update
     void Start()
@@ -101,11 +101,18 @@ public class Worker : MonoBehaviour
 
     void Work()
     {
+        if (currentHP > 0)
+        {
+            currentHP = currentHP - 10;
+            GameInstance.Instance.Money += productivity;
+        }
+        //ui display + productivity
     }
 
     void BeClicked()
     {
-    
+        Work();
+        //老板拍了拍你
     }
 
 }
