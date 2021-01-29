@@ -17,9 +17,11 @@ public class Worker : MonoBehaviour
     public int          ability = 0;                // 特殊能力
     public float        moveSpeed = 1f;
 
-    private bool        isWorking;                  // 是否被雇佣工作   
+    private bool        isWorking = false;          // 是否被雇佣工作
+    private bool        isGrabbed = false;          // 是否被抓走
     private int         currentHP;                  // 当前HP
-    private Vector3     moveDir = Vector3.zero;                    
+    private Vector3     moveDir = Vector3.zero;
+    private float       workTimer;                  // 当前
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +78,34 @@ public class Worker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isWorking && !isGrabbed) 
+            Move();
+    }
+
+    void Move()
+    {
         transform.position += Time.deltaTime * moveDir * moveSpeed;
     }
+
+    void BeGrabbed()
+    {
+        isGrabbed = true;
+    }
+
+    public void StartWork()
+    {
+        isGrabbed = false;
+        isWorking = true;
+        transform.position = new Vector3(Random.Range(0f, 3f), Random.Range(0f, 3f), -2f);
+    }
+
+    void Work()
+    {
+    }
+
+    void BeClicked()
+    {
+    
+    }
+
 }
