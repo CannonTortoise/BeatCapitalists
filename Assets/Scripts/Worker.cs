@@ -17,7 +17,8 @@ public class Worker : MonoBehaviour
     public int          ability = 0;                // 特殊能力
     public float        moveSpeed = 1f;
 
-    private bool        isWorking = false;          // 是否被雇佣工作   
+    private bool        isWorking = false;          // 是否被雇佣工作
+    private bool        isGrabbed = false;          // 是否被抓走
     private int         currentHP;                  // 当前HP
     private Vector3     moveDir = Vector3.zero;
     private float       workTimer;                  // 当前
@@ -77,10 +78,8 @@ public class Worker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isWorking)
+        if (!isWorking && !isGrabbed) 
             Move();
-        else
-            Work();
     }
 
     void Move()
@@ -90,12 +89,14 @@ public class Worker : MonoBehaviour
 
     void BeGrabbed()
     {
-        
+        isGrabbed = true;
     }
 
-    void StartWork()
-    { 
-
+    public void StartWork()
+    {
+        isGrabbed = false;
+        isWorking = true;
+        transform.position = new Vector3(Random.Range(0f, 3f), Random.Range(0f, 3f), -2f);
     }
 
     void Work()
@@ -106,4 +107,5 @@ public class Worker : MonoBehaviour
     {
     
     }
+
 }

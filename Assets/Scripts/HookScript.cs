@@ -10,7 +10,8 @@ public class HookScript : MonoBehaviour
     
     private Vector3 stickStartPos;
 
-    private int status = 0; //0stop 1grab 2return
+    private int status = 0;         //0stop 1grab 2return
+    private Worker grabbedWorker;   //当前抓到的打工人
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class HookScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(status == 1)
+        if (status == 1) 
         {
             transform.position += transform.right * Time.deltaTime * grabSpeed;
             stick.transform.position = (transform.position + stickStartPos) / 2;
@@ -32,26 +33,38 @@ public class HookScript : MonoBehaviour
             transform.position -= transform.right * Time.deltaTime * grabSpeed;
             stick.transform.position = (transform.position + stickStartPos) / 2;
             stick.transform.localScale = stick.transform.localScale - Vector3.right * Time.deltaTime * grabSpeed * 2.5f;
+
+            if (grabbedWorker != null)
+                grabbedWorker.transform.position = transform.position;
+
             if (stick.transform.localScale.x < 0.2f)
             {
                 status = 0;
-                GetComponent<BoxCollider2D>().enabled = true;
+                if (grabbedWorker != null)
+                {
+                    grabbedWorker.StartWork();
+                    grabbedWorker = null;
+                }
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
-        if (collision.tag == "Worker" || collision.tag == "Border")
+        if (status != 1)
+            return;
+        if (collision.tag == "Worker" )
         {
             status = 2;
-            GetComponent<BoxCollider2D>().enabled = false;
+            grabbedWorker = collision.GetComponent<Worker>();
         }
+        else if(collision.tag == "Border")
+            status = 2;
     }
 
     void OnMouseDown()
     {
-        status = 1;
+        if (status == 0)
+            status = 1;
     }
 }
