@@ -5,7 +5,8 @@ using UnityEngine;
 public enum WorkerClass { 
     Rare = 0,
     Epic = 1,
-    Legendary = 2
+    Legendary = 2,
+    Noob = 3
 };
 
 public class Worker : MonoBehaviour
@@ -101,11 +102,14 @@ public class Worker : MonoBehaviour
 
     void Work()
     {
+        currentHP -= 5;
+        GameInstance.Instance.Money += productivity * 10;
     }
 
     void BeClicked()
     {
-    
+        currentHP -= 7.5;
+        GameInstance.Instance.Money += productivity * 10;
     }
 
 }
