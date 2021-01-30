@@ -21,7 +21,6 @@ public class GameInstance : MonoBehaviour
     public int DeadEmployee = 0;
     public int DeadEmployeebyPYP = 0;
     //public 
-
     void Awake()
     {
         Instance = this;
