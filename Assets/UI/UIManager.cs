@@ -37,8 +37,9 @@ public class UIManager : MonoBehaviour
     }
     public void Ringclicked()
     {
-        //Debug.Log("111");
-        RingMenuInstance = Instantiate(RingMenuPrefab, FindObjectOfType<Canvas>().transform);
+        Debug.Log("111");
+        //RingMenuInstance = Instantiate(RingMenuPrefab, FindObjectOfType<Canvas>().transform);
+        RingMenuInstance = Instantiate(RingMenuPrefab, GameObject.Find("WrenCanvas").transform);
         RingMenuInstance.callback = MenuClick;
     }
     public void MoneyUp()
