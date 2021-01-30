@@ -9,7 +9,7 @@ public class GameInstance : MonoBehaviour
 
     public int level = 0;
     
-    public int WorkSpace = 5;
+    public int WorkSpace = 0;
     public bool isfull = false;
 
     public float Money = 0;
@@ -20,6 +20,8 @@ public class GameInstance : MonoBehaviour
 
     public int DeadEmployee = 0;
     public int DeadEmployeebyPYP = 0;
+
+    public int levelMoneyFactor = 2;
     //public 
     void Awake()
     {
@@ -29,9 +31,9 @@ public class GameInstance : MonoBehaviour
 
     void Start()
     {
-        LevelMoney = 20000;
         StartTimer = Time.time;
         LevelTime = 180;
+        checklevel();
     }
 
     void Update()
@@ -43,16 +45,17 @@ public class GameInstance : MonoBehaviour
 
     void checklevel()
     {
-        if (level == 3) { }
+        if (level == 4) { }
             //bool winning = true;
         else
         {
             if (Money > LevelMoney)
             {
                 level++;
-                WorkSpace += 5;
                 StartTimer = Time.time;
-                LevelMoney = 20000 * Mathf.Pow((level + 1), 1.2f);
+                LevelMoney = (levelMoneyFactor) * 3000;
+                WorkSpace = WorkSpace + 2 + level;
+                levelMoneyFactor += WorkSpace;
             }
         }
     }
