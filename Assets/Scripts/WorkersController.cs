@@ -35,6 +35,8 @@ public class WorkersController : MonoBehaviour
     [SerializeField]
     public bool[] seats = new bool[20];                             //座位bitmap
 
+    private Transform workersParent;
+
     void Awake()
     {
         Instance = this;
@@ -57,29 +59,35 @@ public class WorkersController : MonoBehaviour
 
     void InitWorkers()
     {
-        Transform parent = GameObject.Find("Workers").transform;
-        for (int i = 0; i < initNum; i++)
+        workersParent = GameObject.Find("Workers").transform;
+        //for (int i = 0; i < initNum; i++)
+            //GenerateWorker();
+    }
+
+    //随机产生一个新的worker
+    public void GenerateWorker(Route route)
+    {
+        int rnum = Random.Range(0, 100);
+        int rclass = 0;
+        int count = 0;
+
+        for (; rclass < probabilityByClass.Length; rclass++)
         {
-            int rnum = Random.Range(0, 100);
-            int rclass = 0;
-            int count = 0;
-
-            for (; rclass < probabilityByClass.Length; rclass++)
-            {
-                count += probabilityByClass[rclass];
-                if (rnum < count)
-                    break;
-            }
-
-            Vector3 workerPos = Vector3.zero;
-            while (Mathf.Abs(workerPos.x) < feasibleRegion.x && Mathf.Abs(workerPos.y) < feasibleRegion.y) 
-            {
-                workerPos.x = Random.Range(-feasibleRegion.z, feasibleRegion.z);
-                workerPos.y = Random.Range(-feasibleRegion.w, feasibleRegion.w);
-            }
-            GameObject workerInstance = Instantiate(prefabsByClass[rclass], workerPos, new Quaternion(), parent);
-            FreeWorkers.Add(workerInstance.GetComponent<Worker>());
+            count += probabilityByClass[rclass];
+            if (rnum < count)
+                break;
         }
+
+        //Vector3 workerPos = Vector3.zero;
+        //while (Mathf.Abs(workerPos.x) < feasibleRegion.x && Mathf.Abs(workerPos.y) < feasibleRegion.y)
+        //{
+        //    workerPos.x = Random.Range(-feasibleRegion.z, feasibleRegion.z);
+        //    workerPos.y = Random.Range(-feasibleRegion.w, feasibleRegion.w);
+        //}
+        Vector3 workerPos = route.points[0].position;
+        GameObject workerInstance = Instantiate(prefabsByClass[rclass], workerPos, new Quaternion(), workersParent);
+        workerInstance.GetComponent<Worker>().SetRoute(route);
+        FreeWorkers.Add(workerInstance.GetComponent<Worker>());
     }
 
     void UpdateWorkersPosition()

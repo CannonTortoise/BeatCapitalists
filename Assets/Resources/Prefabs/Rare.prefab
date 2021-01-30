@@ -101,7 +101,7 @@ MonoBehaviour:
   HP: 100
   productivity: 2
   ability: 59
-  moveSpeed: 1
+  moveSpeed: 5
   isWorking: 0
   seat: 0
 --- !u!61 &8557707654880505537

@@ -26,6 +26,10 @@ public class Worker : MonoBehaviour
     private float       workTimer;                  // 当前
     public int          seat;                       // 当前座位
 
+    private Route       route;                      // 行走路线
+    private int         routePoint;                 // 当前路线点
+    private Vector3     nextPointPos;               // 下一个路线点坐标
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,13 +89,38 @@ public class Worker : MonoBehaviour
         if (this != null)
         {
             if (!isWorking && !isGrabbed)
-                Move();
+                UpdateMovement();
         }
     }
 
-    void Move()
+    void UpdateMovement()
     {
-        transform.position += Time.deltaTime * moveDir * moveSpeed;
+        transform.position = Vector3.MoveTowards(transform.position, nextPointPos, Time.deltaTime * moveSpeed);
+    }
+
+    public void Move()
+    {
+        //transform.position += Time.deltaTime * moveDir * moveSpeed;
+
+        routePoint++;
+
+        if (routePoint < route.points.Length)
+        {
+            //transform.position = route.points[routePoint].position;
+            nextPointPos = route.points[routePoint].position;
+        }
+        else
+            Debug.LogError("Worker Move Error!");
+        
+    }
+
+    public void CheckRemovement()
+    {
+        if (routePoint >= route.points.Length - 1)
+        {
+            WorkersController.Instance.FreeWorkers.Remove(this);
+            Destroy(gameObject);
+        }
     }
 
     void BeGrabbed()
@@ -168,5 +197,12 @@ public class Worker : MonoBehaviour
     {
         if(isWorking)
             BeClicked();
+    }
+
+    public void SetRoute(Route i_route)
+    {
+        route = i_route;
+        routePoint = 0;
+        nextPointPos = i_route.points[0].position;
     }
 }
