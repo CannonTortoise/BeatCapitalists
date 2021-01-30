@@ -15,15 +15,25 @@ public class UIManager : MonoBehaviour
 
     public GameObject canvas;
     private GameObject scrollbar;
-    private float process; // 0-1
     private int phase;
+
+    private Animator Phase01;
+    private Animator Phase02;
+    private Animator Phase03;
+
+    public string[] Achievement = { "杀人如麻", "钓条大的", "钩无虚发", "初入职场", "牛刀小试", "如鱼得水", "大资本家"};
+    public int length;
 
     void Start()
     {
+        length = Achievement.Length;
         IfAchievement = false;
-        process = GameInstance.Instance.Money / GameInstance.Instance.LevelMoney;
         phase = 0;
         scrollbar = GameObject.Find("Scrollbar");
+        Phase01 = GameObject.Find("Phase01").GetComponent<Animator>();
+        Phase02 = GameObject.Find("Phase02").GetComponent<Animator>();
+        Phase03 = GameObject.Find("Phase03").GetComponent<Animator>();
+
     }
     public void Exit()
     {
@@ -31,29 +41,51 @@ public class UIManager : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(process);
-        scrollbar.GetComponent<Scrollbar>().size = process;
-        if(process >= 0.25 && phase == 0)
+        var process = GameInstance.Instance.Money / GameInstance.Instance.LevelMoney;
+        //Debug.Log(process);
+        scrollbar.GetComponent<Scrollbar>().size = GameInstance.Instance.Money / GameInstance.Instance.LevelMoney;
+        #region
+        //if (Input.GetKey(KeyCode.Q))
+        //{
+        //    phase = 1;
+        //    //PlayAnim(Phase01);
+        //    Phase01.SetBool("IfGlow", true);
+        //}
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //    phase = 2;
+        //    //PlayAnim(Phase02);
+        //    Phase02.SetBool("IfGlow", true);
+        //}
+        //if (Input.GetKey(KeyCode.E))
+        //{
+        //    phase = 3;
+        //    //PlayAnim(Phase03);
+        //    Phase03.SetBool("IfGlow", true);
+        //}
+        #endregion
+        if (process >= 0.25 && phase == 0)
         {
             phase = 1;
+            Phase01.SetBool("IfGlow", true);
         }
-        else if(process >= 0.5 && phase == 1)
+        else if (process >= 0.5 && phase == 1)
         {
             phase = 2;
+            Phase02.SetBool("IfGlow", true);
         }
-        else if (process >= 0.5 && phase == 2)
+        else if (process >= 0.75 && phase == 2)
         {
             phase = 3;
+            Phase03.SetBool("IfGlow", true);
         }
 
         if (Input.GetKey(KeyCode.P))
         {
-            //Debug.Log("P");
             IfAchievement = true;
         }
         if (IfAchievement == true)
         {
-            //Debug.Log("Do P");
             PlayAnim(AchievementAnimator);
             IfAchievement = false;
         }
@@ -64,10 +96,6 @@ public class UIManager : MonoBehaviour
         RingMenuInstance = Instantiate(RingMenuPrefab, GameObject.Find("WrenCanvas").transform);
         RingMenuInstance.callback = MenuClick;
     }
-    public void MoneyUp()
-    {
-        Debug.Log("+");
-    }
     private void MenuClick(string path)
     {
         Debug.Log(path);
@@ -77,6 +105,10 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(PlayAnimation(animator));
     }
+    //public void PlayAnim01(Animator animator)
+    //{
+    //    StartCoroutine(PlayAnimation01(animator));
+    //}
     public IEnumerator PlayAnimation(Animator animator)
     {
         animator.SetBool("IfPlay", true);
@@ -85,5 +117,12 @@ public class UIManager : MonoBehaviour
 
         animator.SetBool("IfPlay", false);
     }
+    //public IEnumerator PlayAnimation01(Animator animator)
+    //{
+    //    animator.SetBool("IfGlow", true);
 
+    //    yield return new WaitForSeconds(0.1f);
+
+    //    animator.SetBool("IfGlow", false);
+    //}
 }
