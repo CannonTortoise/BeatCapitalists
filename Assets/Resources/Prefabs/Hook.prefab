@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabSpeed: 2.5
+  falcula01: {fileID: 4741980457196361132}
+  falcula02: {fileID: 1499323534352973754}
+  HighlightMT: {fileID: 2100000, guid: 6423b99286db77b409cc2193610356bc, type: 2}
 --- !u!61 &452148008545050209
 BoxCollider2D:
   m_ObjectHideFlags: 0
