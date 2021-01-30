@@ -118,17 +118,23 @@ public class Worker : MonoBehaviour
     public void Work(bool click, double damage)
         //bool是判定是否是拍一拍，金钱和damage挂钩
     {
+        float addingmoney = (float)
+            ((productivity * (1 - (WorkersController.Instance.WorkStrength * 0.2))) * damage);
+        if(currentHP < damage)
+            addingmoney = (float)
+                ((productivity * (1 - (WorkersController.Instance.WorkStrength * 0.2))) * currentHP);
+
         if (!click)
         {
             currentHP -= damage;
             checkclickdead(false);
-            GameInstance.Instance.Money += ((double)(productivity * damage));
+            GameInstance.Instance.Money += addingmoney;
         }
         else
         {
             currentHP -= damage;
             checkclickdead(true);
-            GameInstance.Instance.Money += (0.9* productivity * damage);
+            GameInstance.Instance.Money += 0.9f*addingmoney;
         }//拍一拍只有0.9的收入
 
         Debug.Log(GameInstance.Instance.Money);

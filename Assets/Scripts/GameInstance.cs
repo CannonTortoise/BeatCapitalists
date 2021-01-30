@@ -12,8 +12,8 @@ public class GameInstance : MonoBehaviour
     public int WorkSpace = 5;
     public bool isfull = false;
 
-    public double Money = 0;
-    public double LevelMoney = 0;
+    public float Money = 0;
+    public float LevelMoney = 0;
 
     public float StartTimer = 0.0f;
     public float LevelTime = 0.0f;
@@ -30,7 +30,7 @@ public class GameInstance : MonoBehaviour
 
     void Start()
     {
-        LevelMoney = 2000;
+        LevelMoney = 20000;
         StartTimer = Time.time;
         LevelTime = 180;
     }
@@ -53,6 +53,7 @@ public class GameInstance : MonoBehaviour
                 level++;
                 WorkSpace += 5;
                 StartTimer = Time.time;
+                LevelMoney = 20000 * Mathf.Pow((level + 1), 1.2f);
             }
         }
     }
