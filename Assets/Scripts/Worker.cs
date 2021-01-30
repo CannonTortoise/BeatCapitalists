@@ -109,8 +109,6 @@ public class Worker : MonoBehaviour
             //transform.position = route.points[routePoint].position;
             nextPointPos = route.points[routePoint].position;
         }
-        else
-            Debug.LogError("Worker Move Error!");
         
     }
 
