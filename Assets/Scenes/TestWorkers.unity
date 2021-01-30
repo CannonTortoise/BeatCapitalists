@@ -2418,7 +2418,7 @@ MonoBehaviour:
   WorkStrength: 1
   FinalDamage: 0
   prefabsByClass:
-  - {fileID: 4036169379745712988, guid: 08c9c263da48ad440af1e5edc6b561fe, type: 3}
+  - {fileID: 9130651232335717742, guid: 09b11613cb9a1334996918946d78bb60, type: 3}
   - {fileID: 4486474249265897294, guid: c1d339285ebb0b94586d8a55ebf50462, type: 3}
   - {fileID: 811688700686815958, guid: d71e064aab7a78d40a06bfcc20a977e3, type: 3}
   probabilityByClass: 4b0000001400000005000000
@@ -2456,7 +2456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  WorkSpace: 20
+  WorkSpace: 5
   isfull: 0
   Money: 0
   LevelMoney: 0

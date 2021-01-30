@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public enum WorkerClass { 
     Rare = 0,
@@ -29,6 +30,10 @@ public class Worker : MonoBehaviour
     private Route       route;                      // 行走路线
     private int         routePoint;                 // 当前路线点
     private Vector3     nextPointPos;               // 下一个路线点坐标
+
+    public Image FillHealthbar; 
+    public Image BorderHealthbar;
+    public Image HighlightHealthbar;
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +86,10 @@ public class Worker : MonoBehaviour
         }
 
         currentHP = HP;
+
+        FillHealthbar.fillAmount = 0.0f;
+        BorderHealthbar.fillAmount = 0.0f;
+        HighlightHealthbar.fillAmount = 0.0f;
     }
 
     // Update is called once per frame
@@ -141,6 +150,10 @@ public class Worker : MonoBehaviour
         }
         else
             Debug.Log("没工位了，你妈炸了");
+
+        FillHealthbar.fillAmount = 1.0f;
+        BorderHealthbar.fillAmount = 1.0f;
+        HighlightHealthbar.fillAmount = 1.0f;
     }
 
     public void Work(bool click, double damage)
@@ -164,6 +177,9 @@ public class Worker : MonoBehaviour
             checkclickdead(true);
             GameInstance.Instance.Money += 0.9f*addingmoney;
         }//拍一拍只有0.9的收入
+
+        FillHealthbar.fillAmount = (float)(currentHP / HP); 
+        HighlightHealthbar.fillAmount = (float)(currentHP / HP);
 
         Debug.Log(GameInstance.Instance.Money);
     }
