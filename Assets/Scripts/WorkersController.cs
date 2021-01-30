@@ -29,7 +29,7 @@ public class WorkersController : MonoBehaviour
     public float WorkTimer;                                         //间隔timer
     public float Countdown = 1;                                     //间隔频率
 
-    private List<GameObject> workers = new List<GameObject>();
+    public List<Worker> FreeWorkers = new List<Worker>();           //漫步的打工人
     public List<Worker> WorkingWorkers = new List<Worker>();        //工位上的打工人
 
     [SerializeField]
@@ -78,8 +78,7 @@ public class WorkersController : MonoBehaviour
                 workerPos.y = Random.Range(-feasibleRegion.w, feasibleRegion.w);
             }
             GameObject workerInstance = Instantiate(prefabsByClass[rclass], workerPos, new Quaternion(), parent);
-            workerInstance.transform.position = workerPos;
-            workers.Add(workerInstance);
+            FreeWorkers.Add(workerInstance.GetComponent<Worker>());
         }
     }
 

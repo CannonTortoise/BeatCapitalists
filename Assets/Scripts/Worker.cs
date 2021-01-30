@@ -110,6 +110,7 @@ public class Worker : MonoBehaviour
             int x = seat % 5, y = seat / 5;
             transform.position = new Vector3((-1.8f + x*0.9f), (0.9f-y*0.9f), -2f);
             WorkersController.Instance.WorkingWorkers.Add(this);
+            WorkersController.Instance.FreeWorkers.Remove(this);
         }
         else
             Debug.Log("没工位了，你妈炸了");
