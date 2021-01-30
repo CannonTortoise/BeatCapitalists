@@ -25,8 +25,8 @@ public class Route : MonoBehaviour
             lineRenderer = GetComponent<LineRenderer>();
             lineRenderer.startColor = routeColor;
             lineRenderer.endColor = routeColor;
-            lineRenderer.startWidth = 0.05f;
-            lineRenderer.endWidth = 0.05f;
+            lineRenderer.startWidth = 0.01f;
+            lineRenderer.endWidth = 0.01f;
 
             lineRenderer.positionCount = points.Length;
             for (int i = 0; i < points.Length; i++)
