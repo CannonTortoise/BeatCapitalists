@@ -11,9 +11,10 @@ public class WorkersController : MonoBehaviour
     [Header("Basic Settings")]
     public int initNum = 10;
     public float moveSpeed = 1f;
-
-    public int CurrentEmployee = 0;
-    public int WorkStrength = 0;
+    public double DefaultDamage = 5;                                //伤害值
+    public int WorkStrength = 0;                                    //0 = 955, 1 = 996, 2 = 007
+    public double FinalDamage;
+    //public int CurrentEmployee = 0;
 
     [Header("Class Settings")]
     public GameObject[] prefabsByClass;
@@ -24,15 +25,15 @@ public class WorkersController : MonoBehaviour
     public bool isGizmosOn = false;
     public Vector4 feasibleRegion;
 
-    [Header("Timer")]
-    public float WorkTimer;
-    public float Countdown = 1;
+    [Header("Timer")]   
+    public float WorkTimer;                                         //间隔timer
+    public float Countdown = 1;                                     //间隔频率
 
     private List<GameObject> workers = new List<GameObject>();
-    public List<Worker> WorkingWorkers = new List<Worker>();
+    public List<Worker> WorkingWorkers = new List<Worker>();        //工位上的打工人
 
     [SerializeField]
-    public bool[] seats = new bool[20];
+    public bool[] seats = new bool[20];                             //座位bitmap
 
     void Awake()
     {
@@ -51,6 +52,7 @@ public class WorkersController : MonoBehaviour
     {
         UpdateWorkersPosition();
         UpdateTimer();
+        UpdateDamage();
     }
 
     void InitWorkers()
@@ -102,7 +104,7 @@ public class WorkersController : MonoBehaviour
         {
             if (WorkingWorkers[i].isWorking)
             {
-                WorkingWorkers[i].Work(false, 5);
+                WorkingWorkers[i].Work(false, FinalDamage);
             }
         }
     }
@@ -131,6 +133,11 @@ public class WorkersController : MonoBehaviour
             check &= seats[i];
         }
         GameInstance.Instance.isfull = check;
+    }
+
+    public void UpdateDamage()
+    {
+        FinalDamage = 2.5 * WorkStrength + DefaultDamage;
     }
 
     private void OnDrawGizmos()

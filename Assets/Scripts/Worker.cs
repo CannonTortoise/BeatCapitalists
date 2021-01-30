@@ -14,14 +14,14 @@ public class Worker : MonoBehaviour
 {
     public string       wname;                      // 名称
     public WorkerClass  wclass = WorkerClass.Rare;  // 级别
-    public int          HP = 100;                   // 生命值
+    public double       HP = 100;                   // 生命值
     public int          productivity = 1;           // 生产力
     public int          ability = 0;                // 特殊能力
     public float        moveSpeed = 1f;
 
     public bool         isWorking = false;          // 是否被雇佣工作
     private bool        isGrabbed = false;          // 是否被抓走
-    private int         currentHP;                  // 当前HP
+    private double      currentHP;                  // 当前HP
     private Vector3     moveDir = Vector3.zero;
     private float       workTimer;                  // 当前
     public int          seat;                       // 当前座位
@@ -115,7 +115,7 @@ public class Worker : MonoBehaviour
             Debug.Log("没工位了，你妈炸了");
     }
 
-    public void Work(bool click, int damage)
+    public void Work(bool click, double damage)
         //bool是判定是否是拍一拍，金钱和damage挂钩
     {
         if (!click)
@@ -136,7 +136,7 @@ public class Worker : MonoBehaviour
 
     void BeClicked()
     {
-        Work(true,10);
+        Work(true, WorkersController.Instance.FinalDamage);
         //老板拍了拍你
     }
 
