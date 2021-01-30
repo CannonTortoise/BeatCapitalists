@@ -60,14 +60,17 @@ public class RingMenu : MonoBehaviour
             if(path == "/955")
             {
                 Debug.Log("Mode 1");
+                WorkersController.Instance.WorkStrength = 0;
             }
             else if(path == "/996")
             {
                 Debug.Log("Mode 2");
+                WorkersController.Instance.WorkStrength = 1;
             }
             else if (path == "/007")
             {
                 Debug.Log("Mode 3");
+                WorkersController.Instance.WorkStrength = 2;
             }
             //callback?.Invoke(path);
             gameObject.SetActive(false);
