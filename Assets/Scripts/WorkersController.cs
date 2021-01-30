@@ -162,4 +162,9 @@ public class WorkersController : MonoBehaviour
             Gizmos.DrawLine(new Vector3(feasibleRegion.z, -feasibleRegion.w), new Vector3(feasibleRegion.z, feasibleRegion.w));
         }
     }
+
+    public void SetWorkStrength(int strength)
+    {
+        WorkStrength = strength;
+    }
 }
