@@ -35,6 +35,8 @@ public class Worker : MonoBehaviour
     public Image BorderHealthbar;
     public Image HighlightHealthbar;
 
+    private GameObject coinPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +92,8 @@ public class Worker : MonoBehaviour
         FillHealthbar.fillAmount = 0.0f;
         BorderHealthbar.fillAmount = 0.0f;
         HighlightHealthbar.fillAmount = 0.0f;
+
+        coinPrefab = Resources.Load("Prefabs/Coin") as GameObject;
     }
 
     // Update is called once per frame
@@ -181,7 +185,16 @@ public class Worker : MonoBehaviour
         FillHealthbar.fillAmount = (float)(currentHP / HP); 
         HighlightHealthbar.fillAmount = (float)(currentHP / HP);
 
+        GameObject coin = Instantiate(coinPrefab, transform.position + new Vector3(0.08f, 0.5f,0), new Quaternion(),transform);
+        StartCoroutine(DestroyCoin(coin));
+
         Debug.Log(GameInstance.Instance.Money);
+    }
+
+    IEnumerator DestroyCoin(GameObject coin)
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(coin);
     }
 
     void BeClicked()

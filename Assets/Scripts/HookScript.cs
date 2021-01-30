@@ -70,7 +70,8 @@ public class HookScript : MonoBehaviour
             status = 2;
     }
 
-    void OnMouseDown()
+    //void OnMouseDown()
+    public void BeClicked()
     {
         WorkersController.Instance.CheckSeats();
         if (status == 0)
