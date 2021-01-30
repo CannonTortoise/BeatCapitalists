@@ -13,9 +13,17 @@ public class UIManager : MonoBehaviour
     public RingMenu RingMenuPrefab;
     protected RingMenu RingMenuInstance;
 
+    public GameObject canvas;
+    private GameObject scrollbar;
+    private float process; // 0-1
+    private int phase;
+
     void Start()
     {
         IfAchievement = false;
+        process = GameInstance.Instance.Money / GameInstance.Instance.LevelMoney;
+        phase = 0;
+        scrollbar = GameObject.Find("Scrollbar");
     }
     public void Exit()
     {
@@ -23,6 +31,21 @@ public class UIManager : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log(process);
+        scrollbar.GetComponent<Scrollbar>().size = process;
+        if(process >= 0.25 && phase == 0)
+        {
+            phase = 1;
+        }
+        else if(process >= 0.5 && phase == 1)
+        {
+            phase = 2;
+        }
+        else if (process >= 0.5 && phase == 2)
+        {
+            phase = 3;
+        }
+
         if (Input.GetKey(KeyCode.P))
         {
             //Debug.Log("P");
@@ -37,7 +60,6 @@ public class UIManager : MonoBehaviour
     }
     public void Ringclicked()
     {
-        Debug.Log("111");
         //RingMenuInstance = Instantiate(RingMenuPrefab, FindObjectOfType<Canvas>().transform);
         RingMenuInstance = Instantiate(RingMenuPrefab, GameObject.Find("WrenCanvas").transform);
         RingMenuInstance.callback = MenuClick;
