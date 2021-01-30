@@ -40,6 +40,9 @@ public class HookScript : MonoBehaviour
             if (stick.transform.localScale.x < 0.2f)
             {
                 status = 0;
+                WorkersController.Instance.CheckSeats();
+                if (GameInstance.Instance.isfull)
+                    Destroy(grabbedWorker.gameObject);
                 if (grabbedWorker != null)
                 {
                     grabbedWorker.StartWork();
@@ -64,7 +67,11 @@ public class HookScript : MonoBehaviour
 
     void OnMouseDown()
     {
+        WorkersController.Instance.CheckSeats();
         if (status == 0)
-            status = 1;
+            if (!GameInstance.Instance.isfull)
+                status = 1;
+            else
+                Debug.Log("你妈炸了，工位满了");
     }
 }
