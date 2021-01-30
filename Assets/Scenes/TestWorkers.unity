@@ -2396,6 +2396,16 @@ MonoBehaviour:
   - "\u725B\u5200\u5C0F\u8BD5"
   - "\u5982\u9C7C\u5F97\u6C34"
   - "\u5927\u8D44\u672C\u5BB6"
+  Description:
+  - "100\u540D\u5458\u5DE5\u5DF2\u7ECF\u7D2F\u6B7B\u5728\u4E86\u4F60\u7684\u516C\u53F8,
+    \u731D\u6B7B\u7684\uFF0C\u88AB\u62CD\u6B7B\u7684\uFF0C\u88AB\u5C4E\u618B\u6B7B\u7684\u5E94\u6709\u5C3D\u6709"
+  - "\u6210\u529F\u94A9\u4F4F\u5341\u4E2A\u4F20\u5947\u54C1\u8D28\u6253\u5DE5\u4EBA\u3002WOW\uFF01\u91D1\u8272\u6253\u5DE5\u4EBA\uFF01"
+  - "\u8FDE\u7EED\u547D\u4E2D20\u94A9\uFF01/\u5230\u7238\u7238\u8FD9\u6765\uFF01"
+  - "\u7B2C\u4E00\u5B63\u5EA6\u516C\u53F8\u4EA7\u503C\u8FBE\u6807\uFF01"
+  - "\u7B2C\u4E8C\u5B63\u5EA6\u516C\u53F8\u4EA7\u503C\u8FBE\u6807\uFF01"
+  - "\u7B2C\u4E09\u5B63\u5EA6\u516C\u53F8\u4EA7\u503C\u8FBE\u6807\uFF01"
+  - "\u606D\u559C\uFF01\u7B2C\u56DB\u4E2A\u5B63\u5EA6\u7684\u4EA7\u503C\u4E5F\u6210\u529F\u8FBE\u6807\uFF01\u4F60\u4FE8\u7136\u662F\u4E00\u4F4D\u5408\u683C\u7684\u8D44\u672C\u5BB6\u4E86\u5462\uFF01\u4F46\u3002\u3002\u3002\u7B49\u7B49\u3002\u3002\u3002\u521A\u521A\u662F\u8C01\u7D2F\u7684\u50CF\u72D7\u4E00\u6837\u72C2\u70B9\u9F20\u6807\uFF1F\u563F\u563F\uFF0C\u611F\u8C22\u4F60\u4E3AEAE
+    Noobs teams \u6253\u5DE5\uFF01"
   length: 0
 --- !u!114 &711690498
 MonoBehaviour:
@@ -5807,6 +5817,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 51.9
       objectReference: {fileID: 0}
+    - target: {fileID: 2526312847066853330, guid: 59ab72b531e4cf243a95ec9c70bdb57a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7980755752979313366, guid: 59ab72b531e4cf243a95ec9c70bdb57a, type: 3}
       propertyPath: m_Name
       value: Hook

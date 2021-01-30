@@ -14,6 +14,12 @@ public class HookScript : MonoBehaviour
     private int status = 0;         //0stop 1grab 2return
     private Worker grabbedWorker;   //当前抓到的打工人
 
+    public GameObject falcula01;
+    public GameObject falcula02;
+
+    public Material HighlightMT;
+    private Material DefaultMT;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +51,10 @@ public class HookScript : MonoBehaviour
             if (Vector3.Dot(transform.position, transform.position - startPos) <= 0) 
             {
                 status = 0;
+                //钩子完全收回
+                falcula01.GetComponent<SpriteRenderer>().material = DefaultMT;
+                falcula02.GetComponent<SpriteRenderer>().material = DefaultMT;
+
                 WorkersController.Instance.CheckSeats();
                 if (GameInstance.Instance.isfull)
                     Destroy(grabbedWorker.gameObject);
@@ -75,9 +85,18 @@ public class HookScript : MonoBehaviour
     {
         WorkersController.Instance.CheckSeats();
         if (status == 0)
+        {
             if (!GameInstance.Instance.isfull)
+            {
                 status = 1;
+                //钩子伸出
+                DefaultMT = falcula01.GetComponent<SpriteRenderer>().material;
+                falcula01.GetComponent<SpriteRenderer>().material = HighlightMT;
+                falcula02.GetComponent<SpriteRenderer>().material = HighlightMT;
+            }
             else
                 Debug.Log("你妈炸了，工位满了");
+        }
+            
     }
 }
