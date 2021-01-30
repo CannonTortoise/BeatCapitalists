@@ -125,11 +125,12 @@ public class WorkersController : MonoBehaviour
 
     public void CheckSeats()
     {
-        GameInstance.Instance.isfull = true;
+        bool check = true;
         for (int i = 0; i < GameInstance.Instance.WorkSpace; i++)
         {
-            GameInstance.Instance.isfull &= seats[i];
+            check &= seats[i];
         }
+        GameInstance.Instance.isfull = check;
     }
 
     private void OnDrawGizmos()

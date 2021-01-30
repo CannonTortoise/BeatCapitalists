@@ -112,7 +112,7 @@ public class Worker : MonoBehaviour
             WorkersController.Instance.WorkingWorkers.Add(this);
         }
         else
-            Debug.Log("你妈炸了");
+            Debug.Log("没工位了，你妈炸了");
     }
 
     public void Work(bool click, int damage)
