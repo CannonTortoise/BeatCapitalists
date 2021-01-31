@@ -46,24 +46,24 @@ public class UIManager : MonoBehaviour
         //Debug.Log(process);
         scrollbar.GetComponent<Scrollbar>().size = GameInstance.Instance.Money / GameInstance.Instance.LevelMoney;
         #region
-        if (Input.GetKey(KeyCode.Q))
-        {
-            phase = 1;
-            //PlayAnim(Phase01);
-            Phase01.SetBool("IfGlow", true);
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            phase = 2;
-            //PlayAnim(Phase02);
-            Phase02.SetBool("IfGlow", true);
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            phase = 3;
-            //PlayAnim(Phase03);
-            Phase03.SetBool("IfGlow", true);
-        }
+        //if (Input.GetKey(KeyCode.Q))
+        //{
+        //    phase = 1;
+        //    //PlayAnim(Phase01);
+        //    Phase01.SetBool("IfGlow", true);
+        //}
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //    phase = 2;
+        //    //PlayAnim(Phase02);
+        //    Phase02.SetBool("IfGlow", true);
+        //}
+        //if (Input.GetKey(KeyCode.E))
+        //{
+        //    phase = 3;
+        //    //PlayAnim(Phase03);
+        //    Phase03.SetBool("IfGlow", true);
+        //}
         #endregion
         if (process >= 0.25 && phase == 0)
         {
