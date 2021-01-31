@@ -241,7 +241,7 @@ public class Worker : MonoBehaviour
             live = false;
             #region
             GameObject ghost = Instantiate(ghostPrefab, transform.position + new Vector3(0.08f, 0.5f, 0), new Quaternion(), transform);
-            DefaultMT = this.GetComponent<SpriteRenderer>().material;
+            //DefaultMT = this.GetComponent<SpriteRenderer>().material;
             this.GetComponent<SpriteRenderer>().material = DissolveMT;
             MyAnimator.SetBool("IfDissolve", true);
             StartCoroutine(DestroyBhost(ghost));

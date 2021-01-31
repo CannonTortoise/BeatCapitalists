@@ -1126,7 +1126,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f4b752fceb2c2134bb07a11e9e2ccc9e, type: 3}
+    m_Font: {fileID: 12800000, guid: 40d67cbc83c18ce4a9fe50a54944fb00, type: 3}
     m_FontSize: 111
     m_FontStyle: 0
     m_BestFit: 0
@@ -1615,9 +1615,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f4b752fceb2c2134bb07a11e9e2ccc9e, type: 3}
+    m_Font: {fileID: 12800000, guid: 40d67cbc83c18ce4a9fe50a54944fb00, type: 3}
     m_FontSize: 232
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 244
@@ -3297,6 +3297,8 @@ MonoBehaviour:
   AchievementAnimator: {fileID: 2139767357}
   RingMenuPrefab: {fileID: 6949186275898417790, guid: c653efaac7976ff49ae9f21962d9218b, type: 3}
   canvas: {fileID: 711690496}
+  AchievementText: {fileID: 0}
+  DescriptionText: {fileID: 0}
   Achievement:
   - "\u6740\u4EBA\u5982\u9EBB"
   - "\u9493\u6761\u5927\u7684"
@@ -6657,6 +6659,7 @@ GameObject:
   - component: {fileID: 1519844703}
   - component: {fileID: 1519844706}
   - component: {fileID: 1519844707}
+  - component: {fileID: 1519844708}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -6795,6 +6798,19 @@ MonoBehaviour:
   - {fileID: 204974092}
   - {fileID: 2067362530}
   - {fileID: 779220509}
+--- !u!114 &1519844708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519844702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306e6c5a0ae28e84ab361052badd3cd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Achievmenetlist: 0000000000000000000000000000000000000000000000000000000000000000
 --- !u!1 &1528767522
 GameObject:
   m_ObjectHideFlags: 0
