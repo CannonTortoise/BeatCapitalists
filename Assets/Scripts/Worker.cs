@@ -22,6 +22,7 @@ public class Worker : MonoBehaviour
 
     public bool         isWorking = false;          // 是否被雇佣工作
     private bool        isGrabbed = false;          // 是否被抓走
+    private bool        live = true;
     private double      currentHP;                  // 当前HP
     private Vector3     moveDir = Vector3.zero;
     private float       workTimer;                  // 当前
@@ -30,12 +31,16 @@ public class Worker : MonoBehaviour
     private Route       route;                      // 行走路线
     private int         routePoint;                 // 当前路线点
     private Vector3     nextPointPos;               // 下一个路线点坐标
+    private Vector3     section1pos;
+    private Vector3     section2pos;                //三个工作区块的坐标
+    private Vector3     section3pos;
 
     public Image FillHealthbar; 
     public Image BorderHealthbar;
     public Image HighlightHealthbar;
 
     private GameObject coinPrefab;
+    private GameObject ghostPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -93,7 +98,12 @@ public class Worker : MonoBehaviour
         BorderHealthbar.fillAmount = 0.0f;
         HighlightHealthbar.fillAmount = 0.0f;
 
+        section1pos = new Vector3(-3.4f, 0.9f, -2f);
+        section2pos = new Vector3(-1.0f, -2.2f, -2f);
+        section3pos = new Vector3(2.7f, 0.7f, -2f);
+
         coinPrefab = Resources.Load("Prefabs/Coin") as GameObject;
+        ghostPrefab = Resources.Load("Prefabs/ghost") as GameObject;
     }
 
     // Update is called once per frame
@@ -130,7 +140,8 @@ public class Worker : MonoBehaviour
         if (routePoint >= route.points.Length - 1)
         {
             WorkersController.Instance.FreeWorkers.Remove(this);
-            Destroy(gameObject);
+            if (this != null)
+                Destroy(this.gameObject);
         }
     }
 
@@ -147,8 +158,21 @@ public class Worker : MonoBehaviour
         seat = WorkersController.Instance.FindSeat();
         if (seat != -1)
         {
-            int x = seat % 5, y = seat / 5;
-            transform.position = new Vector3((-1.8f + x*0.9f), (0.9f-y*0.9f), -2f);
+            int section = seat / 6;
+            int order = seat % 6;
+            if (section == 0) {
+                int x = order / 3, y = order % 3;
+                transform.position = section1pos + new Vector3(1.1f * x, -1.2f * y, 0f);
+            }
+            else if (section == 1) {
+                int x = order / 2, y = order % 2;
+                transform.position = section2pos + new Vector3(1.0f * x, -1.2f * y, -2f);
+            }
+            if(section == 2)
+            {
+                int x = order / 3, y = order % 3;
+                transform.position = section3pos + new Vector3(1.1f * x, -1.2f * y, -2f);
+            }
             WorkersController.Instance.WorkingWorkers.Add(this);
             WorkersController.Instance.FreeWorkers.Remove(this);
         }
@@ -165,9 +189,10 @@ public class Worker : MonoBehaviour
     {
         float addingmoney = (float)
             ((productivity * (1 - (WorkersController.Instance.WorkStrength * 0.2))) * damage);
-        if(currentHP < damage)
+        if(currentHP < damage){
             addingmoney = (float)
                 ((productivity * (1 - (WorkersController.Instance.WorkStrength * 0.2))) * currentHP);
+        }
 
         if (!click)
         {
@@ -191,12 +216,6 @@ public class Worker : MonoBehaviour
         Debug.Log(GameInstance.Instance.Money);
     }
 
-    IEnumerator DestroyCoin(GameObject coin)
-    {
-        yield return new WaitForSeconds(1f);
-        Destroy(coin);
-    }
-
     void BeClicked()
     {
         Work(true, WorkersController.Instance.FinalDamage);
@@ -207,6 +226,9 @@ public class Worker : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            live = false;
+            GameObject ghost = Instantiate(ghostPrefab, transform.position + new Vector3(0.08f, 0.5f, 0), new Quaternion(), transform);
+            StartCoroutine(DestroyBhost(ghost));
             GameInstance.Instance.DeadEmployee++;
             if (click)
             {
@@ -215,14 +237,14 @@ public class Worker : MonoBehaviour
             }
             WorkersController.Instance.WorkingWorkers.Remove(this);
             WorkersController.Instance.seats.SetValue(false, seat);
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 1f);
 
         }
     }
 
     void OnMouseDown()
     {
-        if(isWorking)
+        if(isWorking & live)
             BeClicked();
     }
 
@@ -231,5 +253,17 @@ public class Worker : MonoBehaviour
         route = i_route;
         routePoint = 0;
         nextPointPos = i_route.points[0].position;
+    }
+
+    IEnumerator DestroyCoin(GameObject coin)
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(coin);
+    }
+
+    IEnumerator DestroyBhost(GameObject ghost)
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(ghost);
     }
 }

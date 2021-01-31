@@ -33,7 +33,7 @@ public class WorkersController : MonoBehaviour
     public List<Worker> WorkingWorkers = new List<Worker>();        //工位上的打工人
 
     [SerializeField]
-    public bool[] seats = new bool[20];                             //座位bitmap
+    public bool[] seats = new bool[18];                             //座位bitmap
 
     private Transform workersParent;
 

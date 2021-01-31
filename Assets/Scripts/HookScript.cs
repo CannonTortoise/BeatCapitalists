@@ -47,6 +47,13 @@ public class HookScript : MonoBehaviour
             if (grabbedWorker != null)
                 grabbedWorker.transform.position = transform.position;
 
+            if (grabbedWorker != null) // if catch, count++
+                if (GameInstance.Instance.ifachievedHookCount)
+                    GameInstance.Instance.ContinueHookCount++;
+            if (grabbedWorker == null) // if lose, count zerolized
+                GameInstance.Instance.ContinueHookCount = 0;
+
+            GameInstance.Instance.checkhookcount();
             //if (stick.transform.localScale.x < 0.2f)
             if (Vector3.Dot(transform.position, transform.position - startPos) <= 0) 
             {
@@ -56,10 +63,17 @@ public class HookScript : MonoBehaviour
                 falcula02.GetComponent<SpriteRenderer>().material = DefaultMT;
 
                 WorkersController.Instance.CheckSeats();
-                if (GameInstance.Instance.isfull)
-                    Destroy(grabbedWorker.gameObject);
+                if (grabbedWorker != null)
+                    if (GameInstance.Instance.isfull)
+                    {
+                        Destroy(grabbedWorker.gameObject);
+                        GameInstance.Instance.Sogreedy = true;
+                    }
                 if (grabbedWorker != null)
                 {
+                    if (grabbedWorker.wclass == WorkerClass.Legendary)
+                        GameInstance.Instance.LegendaryEmployee++;
+                    GameInstance.Instance.checkLegendary();
                     grabbedWorker.StartWork();
                     grabbedWorker = null;
                 }
