@@ -69,8 +69,12 @@ public class GameInstance : MonoBehaviour
 
     void checklevel()
     {
-        if (level == 4) { }
-            //bool winning = true;
+        if (level == 4) 
+        {
+            SoundEffectManager.playSound(2);
+        }
+        //bool winning = true;
+        
         else
         {
             if (Money >= LevelMoney)
@@ -97,12 +101,18 @@ public class GameInstance : MonoBehaviour
     public void checkhookcount()
     {
         if (ContinueHookCount >= 20)
+        {
             ifachievedHookCount = true;
+            SoundEffectManager.playSound(1);
+        }
     }
 
     public void checkLegendary()
     {
         if (LegendaryEmployee >= 10)
+        {
             LegendaryAchievement = true;
+            SoundEffectManager.playSound(1);
+        }
     }
 }

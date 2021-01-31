@@ -192,6 +192,7 @@ public class Worker : MonoBehaviour
         if(currentHP < damage){
             addingmoney = (float)
                 ((productivity * (1 - (WorkersController.Instance.WorkStrength * 0.2))) * currentHP);
+            SoundEffectManager.playSound(1);
         }
 
         if (!click)
@@ -212,7 +213,7 @@ public class Worker : MonoBehaviour
 
         GameObject coin = Instantiate(coinPrefab, transform.position + new Vector3(0.08f, 0.5f,0), new Quaternion(),transform);
         StartCoroutine(DestroyCoin(coin));
-
+        SoundEffectManager.playSound(4);
         Debug.Log(GameInstance.Instance.Money);
     }
 

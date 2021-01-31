@@ -114,6 +114,7 @@ public class WorkersController : MonoBehaviour
                 WorkingWorkers[i].Work(false, FinalDamage);
             }
         }
+        
     }
 
     public int FindSeat()

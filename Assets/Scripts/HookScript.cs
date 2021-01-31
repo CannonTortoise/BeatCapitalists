@@ -89,6 +89,7 @@ public class HookScript : MonoBehaviour
         {
             status = 2;
             grabbedWorker = collision.GetComponent<Worker>();
+            SoundEffectManager.playSound(3);
         }
         else if(collision.tag == "Border")
             status = 2;
