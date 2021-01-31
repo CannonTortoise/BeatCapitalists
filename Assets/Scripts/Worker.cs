@@ -20,6 +20,7 @@ public class Worker : MonoBehaviour
     public int          ability = 0;                // 特殊能力
     public float        moveSpeed = 1f;
     public Material DissolveMT;                     //目标材质
+    private Animator MyAnimator;                     //动画机
 
     public bool         isWorking = false;          // 是否被雇佣工作
     private bool        isGrabbed = false;          // 是否被抓走
@@ -49,6 +50,7 @@ public class Worker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MyAnimator = this.GetComponent<Animator>();
         int rnum = Random.Range(0, 2);
         if (Mathf.Abs(transform.position.x) < WorkersController.Instance.feasibleRegion.x &&
             Mathf.Abs(transform.position.y) > WorkersController.Instance.feasibleRegion.y)
@@ -241,6 +243,7 @@ public class Worker : MonoBehaviour
             GameObject ghost = Instantiate(ghostPrefab, transform.position + new Vector3(0.08f, 0.5f, 0), new Quaternion(), transform);
             DefaultMT = this.GetComponent<SpriteRenderer>().material;
             this.GetComponent<SpriteRenderer>().material = DissolveMT;
+            MyAnimator.SetBool("IfDissolve", true);
             StartCoroutine(DestroyBhost(ghost));
             #endregion
             GameInstance.Instance.DeadEmployee++;
