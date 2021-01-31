@@ -542,6 +542,7 @@ MonoBehaviour:
   ability: 59
   moveSpeed: 5
   DissolveMT: {fileID: 2100000, guid: b966e0b4691bba44faf109fcbeb18709, type: 2}
+  DistortMT: {fileID: 2100000, guid: 9caa63910f0f0e3459633cf60702526f, type: 2}
   isWorking: 0
   seat: 0
   FillHealthbar: {fileID: 5095203136485975392}

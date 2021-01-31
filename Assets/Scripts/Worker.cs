@@ -19,8 +19,9 @@ public class Worker : MonoBehaviour
     public int          productivity = 1;           // 生产力
     public int          ability = 0;                // 特殊能力
     public float        moveSpeed = 1f;
-    public Material DissolveMT;                     //目标材质
-    private Animator MyAnimator;                     //动画机
+    public Material DissolveMT;                     //消失材质
+    public Material DistortMT;                      //拍拍材质
+    private Animator MyAnimator;                    //动画机
 
     public bool         isWorking = false;          // 是否被雇佣工作
     private bool        isGrabbed = false;          // 是否被抓走
@@ -232,6 +233,11 @@ public class Worker : MonoBehaviour
     {
         Work(true, WorkersController.Instance.FinalDamage);
         //老板拍了拍你
+        DefaultMT = this.GetComponent<SpriteRenderer>().material;
+        this.GetComponent<SpriteRenderer>().material = DistortMT;
+        StartCoroutine(ResetMaterial(DefaultMT)); 
+        //MyAnimator.SetBool("IfDissolve", true);
+
     }
 
     void checkclickdead(bool click)
@@ -242,7 +248,6 @@ public class Worker : MonoBehaviour
             live = false;
             #region
             GameObject ghost = Instantiate(ghostPrefab, transform.position + new Vector3(0.08f, 0.5f, 0), new Quaternion(), transform);
-            //DefaultMT = this.GetComponent<SpriteRenderer>().material;
             this.GetComponent<SpriteRenderer>().material = DissolveMT;
             MyAnimator.SetBool("IfDissolve", true);
             StartCoroutine(DestroyBhost(ghost));
@@ -288,5 +293,10 @@ public class Worker : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         Destroy(ghost);
+    }
+    IEnumerator ResetMaterial(Material MT)
+    {
+        yield return new WaitForSeconds(0.5f);
+        this.GetComponent<SpriteRenderer>().material = MT;
     }
 }
