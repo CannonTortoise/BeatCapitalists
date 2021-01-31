@@ -12,7 +12,7 @@ public class RingMenu : MonoBehaviour
     public float GapWidthDegree = 1f;
     public Action<string> callback;
     protected RingPiece[] Pieces;
-    //protected RingM
+    protected RingMenu Parent;
     [HideInInspector]
     public string Path;
 
@@ -28,24 +28,28 @@ public class RingMenu : MonoBehaviour
             Pieces[i].transform.localPosition = Vector3.zero;
             Pieces[i].transform.localRotation = Quaternion.identity;
 
-            //set icon
-            Pieces[i].Icon.transform.localPosition = Pieces[i].Piece.transform.localPosition + Quaternion.AngleAxis(i * stepLength, Vector3.forward) * Vector3.up * iconDist;
-            Pieces[i].Icon.sprite = Data.Elements[i].Icon;
-
             //set piece
             Pieces[i].Piece.fillAmount = 1f / Data.Elements.Length - GapWidthDegree / 360f;
             Pieces[i].Piece.transform.localPosition = Vector3.zero;
-            Pieces[i].Piece.transform.localRotation = Quaternion.Euler(0, 0, -stepLength / 2f + GapWidthDegree / 2f + i * stepLength - 30f);
+            //Pieces[i].Piece.transform.localRotation = Quaternion.Euler(0, 0, -stepLength / 2f + GapWidthDegree / 2f + i * stepLength - 30f);
+            Pieces[i].Piece.transform.localRotation = Quaternion.Euler(0, 0, -stepLength / 2f + GapWidthDegree / 2f + i * stepLength);
             Pieces[i].Piece.color = new Color(1f, 1f, 1f, 0.5f);
+
+            //set icon
+            Pieces[i].Icon.transform.localPosition = Pieces[i].Piece.transform.localPosition + Quaternion.AngleAxis(i * stepLength, Vector3.forward) * Vector3.up * iconDist;
+            Pieces[i].Icon.sprite = Data.Elements[i].Icon;
         }
     }
 
     private void Update()
     {
-        var stepLength = 360f / Data.Elements.Length;
+        //var stepLength = 360f / Data.Elements.Length;
+        var stepLength = 120f;
+
         //判断分段激活
-        var mouseAngle = NormalizeAngle(Vector3.SignedAngle(Vector3.up, Input.mousePosition - transform.position, Vector3.forward) + stepLength / 2f);
+        var mouseAngle = NormalizeAngle(Vector3.SignedAngle(Vector3.up, (transform.position - Input.mousePosition) * 100000, Vector3.forward) + stepLength / 2f);
         var activeElement = (int)(mouseAngle / stepLength);
+        Debug.Log(activeElement);
         for (int i = 0; i < Data.Elements.Length; i++)
         {
             if (i == activeElement)
@@ -77,5 +81,5 @@ public class RingMenu : MonoBehaviour
         }
     }
 
-    private float NormalizeAngle(float a) => (a + 360f) % 360f;
+    private float NormalizeAngle(float a) => (a + 270f) % 360f;
 }

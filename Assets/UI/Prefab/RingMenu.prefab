@@ -50,5 +50,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: faead8bab6480f44c9e5ec84f397b735, type: 2}
   RingPiecePrefab: {fileID: -1818085013825746041, guid: 7974e6bf7051c134381bf11278da42e8, type: 3}
-  GapWidthDegree: 30
+  GapWidthDegree: 4
   Path: 

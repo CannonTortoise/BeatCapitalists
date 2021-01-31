@@ -285,7 +285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &205019121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -550,7 +550,6 @@ GameObject:
   m_Component:
   - component: {fileID: 427256701}
   - component: {fileID: 427256698}
-  - component: {fileID: 427256700}
   - component: {fileID: 427256699}
   m_Layer: 0
   m_Name: BlurCamera
@@ -633,14 +632,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &427256700
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 427256697}
-  m_Enabled: 1
 --- !u!4 &427256701
 Transform:
   m_ObjectHideFlags: 0
@@ -796,7 +787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &607075766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -955,7 +946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &662680646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1035,7 +1026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &788463906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1622,7 +1613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1116108172
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1795,7 +1786,7 @@ GameObject:
   - component: {fileID: 1252816913}
   - component: {fileID: 1252816917}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: WrenCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2145,6 +2136,7 @@ GameObject:
   - component: {fileID: 1519844704}
   - component: {fileID: 1519844705}
   - component: {fileID: 1519844703}
+  - component: {fileID: 1519844706}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -2213,6 +2205,8 @@ MonoBehaviour:
   Money: 0
   LevelMoney: 0
   levelMoneyFactor: 2
+  lose: 0
+  win: 0
   StartTimer: 0
   LevelTime: 0
   RemainTime: 0
@@ -2226,6 +2220,20 @@ MonoBehaviour:
   LegendaryEmployee: 0
   LegendaryAchievement: 0
   CloseWorkSpaces: []
+  PauseMenu: {fileID: 0}
+--- !u!114 &1519844706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519844702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306e6c5a0ae28e84ab361052badd3cd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Achievmenetlist: 0000000000000000000000000000000000000000000000000000000000000000
 --- !u!1 &1535513405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,7 +2408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1751283752
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2477,7 +2485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1804456887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2638,7 +2646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2091157697
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2733,7 +2741,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.301, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -0.13999939, y: 0}
   m_SizeDelta: {x: 19.719387, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
