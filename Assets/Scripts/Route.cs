@@ -7,6 +7,7 @@ public class Route : MonoBehaviour
     public Transform[] points;
     public Color routeColor;
     public bool displayRoute = true;
+    public int sortingOrder = 0;
 
     private LineRenderer lineRenderer;
 

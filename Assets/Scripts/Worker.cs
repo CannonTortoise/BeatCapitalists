@@ -151,9 +151,10 @@ public class Worker : MonoBehaviour
         }
     }
 
-    void BeGrabbed()
+    public void BeGrabbed()
     {
         isGrabbed = true;
+        GetComponent<SpriteRenderer>().sortingOrder = 11;
     }
 
     public void StartWork()
@@ -270,6 +271,7 @@ public class Worker : MonoBehaviour
         route = i_route;
         routePoint = 0;
         nextPointPos = i_route.points[0].position;
+        GetComponent<SpriteRenderer>().sortingOrder = i_route.sortingOrder + 1;
     }
 
     IEnumerator DestroyCoin(GameObject coin)
