@@ -24,7 +24,13 @@ public class UIManager : MonoBehaviour
     private Animator Phase03;
     private Animator Phase04;
 
-    public string[] Achievement = { "杀人如麻", "钓条大的", "钩无虚发", "初入职场", "牛刀小试", "如鱼得水", "大资本家"};
+    private bool IfWin;
+    private bool IfLose;
+
+    private GameObject LosePanel;
+    private GameObject WinPanel;
+
+    public string[] Achievement = { "杀人如麻", "钓条大的", "钩无虚发", "初入职场", "牛刀小试", "如鱼得水", "大资本家" };
     public string[] Description = { "100名员工已经累死在了你的公司, 猝死的，被拍死的，被屎憋死的应有尽有", "成功钩住十个传奇品质打工人。WOW！金色打工人！", "连续命中20钩！/到爸爸这来！", "第一季度公司产值达标！", "第二季度公司产值达标！", "第三季度公司产值达标！", "恭喜！第四个季度的产值也成功达标！你俨然是一位合格的资本家了呢！" };
     public int length;
 
@@ -33,6 +39,8 @@ public class UIManager : MonoBehaviour
         length = Achievement.Length;
         IfAchievement = false;
         phase = 0;
+        IfWin = false;
+        IfLose = false;
         scrollbar = GameObject.Find("Scrollbar");
         Phase01 = GameObject.Find("Phase01").GetComponent<Animator>();
         Phase02 = GameObject.Find("Phase02").GetComponent<Animator>();
@@ -40,7 +48,10 @@ public class UIManager : MonoBehaviour
         Phase04 = GameObject.Find("Phase04").GetComponent<Animator>();
         AchievementText = GameObject.Find("AchieveName").GetComponent<Text>();
         DescriptionText = GameObject.Find("Description").GetComponent<Text>();
-
+        WinPanel = GameObject.Find("WinPanel");
+        LosePanel = GameObject.Find("LosePanel");
+        WinPanel.SetActive(false);
+        LosePanel.SetActive(false);
     }
     public void Exit()
     {
@@ -83,27 +94,28 @@ public class UIManager : MonoBehaviour
         //}
         #endregion
         if (process >= 0.25f && phase == 0)
-        {
-            phase = 1;
-            Phase01.SetBool("IfGlow", true);
-        }
-        else if (process >= 0.5f && phase == 1)
-        {
-            phase = 2;
-            Phase02.SetBool("IfGlow", true);
-        }
-        else if (process >= 0.75f && phase == 2)
-        {
-            phase = 3;
-            Phase03.SetBool("IfGlow", true);
-        }
-        else if (process >= 1f && phase == 3)
-        {
-            phase = 4;
-            Phase04.SetBool("IfGlow", true);
-        }
+            if (process >= 0.25f && phase == 0)
+            {
+                phase = 1;
+                Phase01.SetBool("IfGlow", true);
+            }
+            else if (process >= 0.5f && phase == 1)
+            {
+                phase = 2;
+                Phase02.SetBool("IfGlow", true);
+            }
+            else if (process >= 0.75f && phase == 2)
+            {
+                phase = 3;
+                Phase03.SetBool("IfGlow", true);
+            }
+            else if (process >= 1f && phase == 3)
+            {
+                phase = 4;
+                Phase04.SetBool("IfGlow", true);
+            }
 
-        for(int i = 0; i < (AchievementList.Instance.Achievmenetlist.Length - 1); i++)
+        for (int i = 0; i < (AchievementList.Instance.Achievmenetlist.Length - 1); i++)
         {
             if (AchievementList.Instance.Achievmenetlist[i] == statues.Achieve)
             {
@@ -116,6 +128,28 @@ public class UIManager : MonoBehaviour
                 PlayAnim(AchievementAnimator);
                 AchievementList.Instance.Achievmenetlist[i] = statues.Displayed;
                 IfAchievement = false;
+            }
+        }
+        // End Judgement !!!
+        if (Input.GetKey(KeyCode.W))
+        {
+            Debug.Log("W");
+            WinPanel.gameObject.SetActive(true);
+            IfWin = true;
+            Time.timeScale = 0;
+        }
+        if (Input.GetKey(KeyCode.L))
+        {
+            Debug.Log("L");
+            LosePanel.gameObject.SetActive(true);
+            IfLose = true;
+            Time.timeScale = 0;
+        }
+        if (IfLose || IfWin)
+        {
+            if(Input.GetKey(KeyCode.Q))
+            {
+                SceneManager.LoadScene("Menu");
             }
         }
     }

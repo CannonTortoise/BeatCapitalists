@@ -72,12 +72,12 @@ public class GameInstance : MonoBehaviour
 
     void checklevel()
     {
-        if (level == 4) 
+        if (level == 4)
         {
             SoundEffectManager.playSound(2);
         }
         //bool winning = true;
-        
+
         else
         {
             if (Money >= LevelMoney)
