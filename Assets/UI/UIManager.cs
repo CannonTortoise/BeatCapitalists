@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     private Animator Phase01;
     private Animator Phase02;
     private Animator Phase03;
+    private Animator Phase04;
 
     public string[] Achievement = { "杀人如麻", "钓条大的", "钩无虚发", "初入职场", "牛刀小试", "如鱼得水", "大资本家"};
     public string[] Description = { "100名员工已经累死在了你的公司, 猝死的，被拍死的，被屎憋死的应有尽有", "成功钩住十个传奇品质打工人。WOW！金色打工人！", "连续命中20钩！/到爸爸这来！", "第一季度公司产值达标！", "第二季度公司产值达标！", "第三季度公司产值达标！", "恭喜！第四个季度的产值也成功达标！你俨然是一位合格的资本家了呢！" };
@@ -34,6 +35,7 @@ public class UIManager : MonoBehaviour
         Phase01 = GameObject.Find("Phase01").GetComponent<Animator>();
         Phase02 = GameObject.Find("Phase02").GetComponent<Animator>();
         Phase03 = GameObject.Find("Phase03").GetComponent<Animator>();
+        Phase04 = GameObject.Find("Phase04").GetComponent<Animator>();
 
     }
     public void Exit()
@@ -42,9 +44,20 @@ public class UIManager : MonoBehaviour
     }
     void Update()
     {
-        var process = GameInstance.Instance.Money / GameInstance.Instance.LevelMoney;
+        float money = GameInstance.Instance.Money;
+        int[] levelMoney = { 6000, 15000, 32000, 72000 };
+        float process;
+        if (money <= levelMoney[0])
+            process = 0.25f * money / levelMoney[0];
+        else if (money <= levelMoney[1])
+            process = 0.25f + 0.25f * (money - levelMoney[0]) / (levelMoney[1] - levelMoney[0]);
+        else if (money <= levelMoney[2])
+            process = 0.5f + 0.25f * (money - levelMoney[1]) / (levelMoney[2] - levelMoney[1]);
+        else
+            process = 0.75f + 0.25f * (money - levelMoney[2]) / (levelMoney[3] - levelMoney[2]);
+
         //Debug.Log(process);
-        scrollbar.GetComponent<Scrollbar>().size = GameInstance.Instance.Money / GameInstance.Instance.LevelMoney;
+        scrollbar.GetComponent<Scrollbar>().size = process;
         #region
         //if (Input.GetKey(KeyCode.Q))
         //{
@@ -65,20 +78,25 @@ public class UIManager : MonoBehaviour
         //    Phase03.SetBool("IfGlow", true);
         //}
         #endregion
-        if (process >= 0.25 && phase == 0)
+        if (process >= 0.25f && phase == 0)
         {
             phase = 1;
             Phase01.SetBool("IfGlow", true);
         }
-        else if (process >= 0.5 && phase == 1)
+        else if (process >= 0.5f && phase == 1)
         {
             phase = 2;
             Phase02.SetBool("IfGlow", true);
         }
-        else if (process >= 0.75 && phase == 2)
+        else if (process >= 0.75f && phase == 2)
         {
             phase = 3;
             Phase03.SetBool("IfGlow", true);
+        }
+        else if (process >= 1f && phase == 3)
+        {
+            phase = 4;
+            Phase04.SetBool("IfGlow", true);
         }
 
         if (Input.GetKey(KeyCode.P))
