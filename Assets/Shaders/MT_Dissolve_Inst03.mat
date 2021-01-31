@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MT_Dissolve
+  m_Name: MT_Dissolve_Inst03
   m_Shader: {fileID: -6465566751694194690, guid: 68a6c090d62975d40a38b492a7350ad6, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -20,12 +20,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 57c5db5dbeb4ff94994b5b6466d689cd, type: 3}
+        m_Texture: {fileID: 2800000, guid: da0daf37d008b754a951adf3ed2b5875, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _: 35
-    - _Fade: 1
+    - _Fade: 0.486
     - _Scale: 16
     m_Colors:
     - Color_C853A0FE: {r: 0.5254902, g: 0, b: 0.038590286, a: 1}

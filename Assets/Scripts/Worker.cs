@@ -19,6 +19,7 @@ public class Worker : MonoBehaviour
     public int          productivity = 1;           // 生产力
     public int          ability = 0;                // 特殊能力
     public float        moveSpeed = 1f;
+    public Material DissolveMT;                     //目标材质
 
     public bool         isWorking = false;          // 是否被雇佣工作
     private bool        isGrabbed = false;          // 是否被抓走
@@ -27,6 +28,8 @@ public class Worker : MonoBehaviour
     private Vector3     moveDir = Vector3.zero;
     private float       workTimer;                  // 当前
     public int          seat;                       // 当前座位
+
+    private Material DefaultMT;                     //当前材质
 
     private Route       route;                      // 行走路线
     private int         routePoint;                 // 当前路线点
@@ -230,11 +233,16 @@ public class Worker : MonoBehaviour
 
     void checkclickdead(bool click)
     {
+
         if (currentHP <= 0)
         {
             live = false;
+            #region
             GameObject ghost = Instantiate(ghostPrefab, transform.position + new Vector3(0.08f, 0.5f, 0), new Quaternion(), transform);
+            DefaultMT = this.GetComponent<SpriteRenderer>().material;
+            this.GetComponent<SpriteRenderer>().material = DissolveMT;
             StartCoroutine(DestroyBhost(ghost));
+            #endregion
             GameInstance.Instance.DeadEmployee++;
             if (click)
             {
