@@ -15,7 +15,7 @@ public class Worker : MonoBehaviour
 {
     public string       wname;                      // 名称
     public WorkerClass  wclass = WorkerClass.Rare;  // 级别
-    public double       HP = 100;                   // 生命值
+    public float        HP = 100;                   // 生命值
     public int          productivity = 1;           // 生产力
     public int          ability = 0;                // 特殊能力
     public float        moveSpeed = 1f;
@@ -23,7 +23,7 @@ public class Worker : MonoBehaviour
     public bool         isWorking = false;          // 是否被雇佣工作
     private bool        isGrabbed = false;          // 是否被抓走
     private bool        live = true;
-    private double      currentHP;                  // 当前HP
+    private float       currentHP;                  // 当前HP
     private Vector3     moveDir = Vector3.zero;
     private float       workTimer;                  // 当前
     public int          seat;                       // 当前座位
@@ -184,14 +184,14 @@ public class Worker : MonoBehaviour
         HighlightHealthbar.fillAmount = 1.0f;
     }
 
-    public void Work(bool click, double damage)
+    public void Work(bool click, float damage)
         //bool是判定是否是拍一拍，金钱和damage挂钩
     {
-        float addingmoney = (float)
-            ((productivity * (1 - (WorkersController.Instance.WorkStrength * 0.2))) * damage);
+        int addingmoney = Mathf.RoundToInt
+                ((productivity * (1 - (WorkersController.Instance.WorkStrength * 0.2f))) * damage);
         if(currentHP < damage){
-            addingmoney = (float)
-                ((productivity * (1 - (WorkersController.Instance.WorkStrength * 0.2))) * currentHP);
+            addingmoney = Mathf.RoundToInt
+                ((productivity * (1 - (WorkersController.Instance.WorkStrength * 0.2f))) * currentHP);
             SoundEffectManager.playSound(1);
         }
 
@@ -203,9 +203,10 @@ public class Worker : MonoBehaviour
         }
         else
         {
+            addingmoney = Mathf.RoundToInt(0.9f * addingmoney);
             currentHP -= damage;
             checkclickdead(true);
-            GameInstance.Instance.Money += 0.9f*addingmoney;
+            GameInstance.Instance.Money += addingmoney;
         }//拍一拍只有0.9的收入
 
         FillHealthbar.fillAmount = (float)(currentHP / HP); 
@@ -214,7 +215,8 @@ public class Worker : MonoBehaviour
         GameObject coin = Instantiate(coinPrefab, transform.position + new Vector3(0.08f, 0.5f,0), new Quaternion(),transform);
         StartCoroutine(DestroyCoin(coin));
         SoundEffectManager.playSound(4);
-        Debug.Log(GameInstance.Instance.Money);
+
+        Debug.Log("+" + addingmoney + "=" + GameInstance.Instance.Money);
     }
 
     void BeClicked()
