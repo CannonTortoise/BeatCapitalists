@@ -21,4 +21,9 @@ public class Menu : MonoBehaviour
     {
         DevelopersPanel.SetActive(false);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
