@@ -18,6 +18,7 @@ public class GameInstance : MonoBehaviour
     [Header("Timer")]
     public float StartTimer = 0.0f;
     public float LevelTime = 0.0f;
+    public float RemainTime = 0.0f;
     public string minutes;
     public string seconds;
 
@@ -46,7 +47,8 @@ public class GameInstance : MonoBehaviour
     void Start()
     {
         StartTimer = Time.time;
-        LevelTime = 180;
+        LevelTime = 0;
+        RemainTime = 0.0f;
         checklevel();
     }
 
@@ -57,8 +59,9 @@ public class GameInstance : MonoBehaviour
             Money +=20;
         }
         checklevel();
-        minutes = ((int)(Time.time - StartTimer) / 60).ToString();
-        seconds = ((int)(Time.time - StartTimer) % 60).ToString();
+        float t = Time.time - StartTimer;
+        minutes = ((int)(LevelTime - t) / 60).ToString();
+        seconds = ((int)(LevelTime - t) % 60).ToString();
         Money = Mathf.Round(Money * 100f) / 100f;                   //round up to 2 decimal, in case of n.9999
         
         
@@ -80,7 +83,10 @@ public class GameInstance : MonoBehaviour
             if (Money >= LevelMoney)
             {
                 level++;
+                RemainTime = LevelTime - (Time.time - StartTimer);
+                Debug.Log("" + RemainTime);
                 StartTimer = Time.time;
+                LevelTime = 180 + RemainTime;
                 LevelMoney = (levelMoneyFactor) * 3000;
                 WorkSpace = WorkSpace + 2 + level;
                 levelMoneyFactor += WorkSpace;
