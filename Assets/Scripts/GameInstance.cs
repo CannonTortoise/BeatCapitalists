@@ -14,6 +14,8 @@ public class GameInstance : MonoBehaviour
     public float Money = 0;
     public float LevelMoney = 0;
     public int levelMoneyFactor = 2;
+    public bool lose = false;
+    public bool win = false;
 
     [Header("Timer")]
     public float StartTimer = 0.0f;
@@ -41,8 +43,9 @@ public class GameInstance : MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 1;
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -57,7 +60,7 @@ public class GameInstance : MonoBehaviour
     {
         if (Input.GetKey("space"))
         {
-            Money +=20;
+            Money +=2000;
         }
         checklevel();
         float t = Time.time - StartTimer;
@@ -70,18 +73,18 @@ public class GameInstance : MonoBehaviour
             PauseMenu.SetActive(true);
         }
 
-        if (Time.time - StartTimer > LevelTime) { }
-            //bool lose = true;
+        if (Time.time - StartTimer > LevelTime) { lose = true; }
+
     }
 
     void checklevel()
     {
-        if (level == 4)
+        if (level == 5)
         {
             SoundEffectManager.playSound(2);
+            win = true;
+            level += 1;
         }
-        //bool winning = true;
-
         else
         {
             if (Money >= LevelMoney)
@@ -101,6 +104,11 @@ public class GameInstance : MonoBehaviour
 
     void UpdateWorkSpace()
     {
+        if(GameInstance.Instance.WorkSpace > 18)
+        {
+            GameInstance.Instance.WorkSpace = 18;
+
+        }
         int count = GameInstance.Instance.WorkSpace;
         for (int i = 0; i < count; i++)
         {

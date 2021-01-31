@@ -296,7 +296,7 @@ public class Worker : MonoBehaviour
     }
     IEnumerator ResetMaterial(Material MT)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         this.GetComponent<SpriteRenderer>().material = MT;
     }
 }

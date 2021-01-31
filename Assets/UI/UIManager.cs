@@ -131,16 +131,16 @@ public class UIManager : MonoBehaviour
             }
         }
         // End Judgement !!!
-        if (Input.GetKey(KeyCode.W))
+        if (GameInstance.Instance.win == true)
         {
-            Debug.Log("W");
+            //Debug.Log("W");
             WinPanel.gameObject.SetActive(true);
             IfWin = true;
             Time.timeScale = 0;
         }
-        if (Input.GetKey(KeyCode.L))
+        if (GameInstance.Instance.lose == true)
         {
-            Debug.Log("L");
+            //Debug.Log("L");
             LosePanel.gameObject.SetActive(true);
             IfLose = true;
             Time.timeScale = 0;
