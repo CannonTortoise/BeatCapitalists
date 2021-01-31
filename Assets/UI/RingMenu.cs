@@ -42,9 +42,9 @@ public class RingMenu : MonoBehaviour
 
     private void Update()
     {
-        var stepLength = 360f / Data.Elements.Length;
+        var stepLength = 120f;
         //判断分段激活
-        var mouseAngle = NormalizeAngle(Vector3.SignedAngle(Vector3.up, Input.mousePosition - transform.position, Vector3.forward) + stepLength / 2f);
+        var mouseAngle = NormalizeAngle(Vector3.SignedAngle(Vector3.up, Input.mousePosition - transform.position, Vector3.forward) + stepLength / 1f);
         var activeElement = (int)(mouseAngle / stepLength);
         for (int i = 0; i < Data.Elements.Length; i++)
         {
