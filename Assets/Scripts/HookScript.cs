@@ -20,6 +20,8 @@ public class HookScript : MonoBehaviour
     public Material HighlightMT;
     private Material DefaultMT;
 
+    public GameObject fullTip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -109,9 +111,16 @@ public class HookScript : MonoBehaviour
                 falcula01.GetComponent<SpriteRenderer>().material = HighlightMT;
                 falcula02.GetComponent<SpriteRenderer>().material = HighlightMT;
             }
-            else
-                Debug.Log("你妈炸了，工位满了");
+            else if (fullTip != null) 
+                StartCoroutine(WorkSpaceIsFull());
         }
             
+    }
+
+    IEnumerator WorkSpaceIsFull()
+    {
+        fullTip.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        fullTip.SetActive(false);
     }
 }
