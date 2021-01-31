@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum statues
+{
+    NotAchieve = 0,
+    Achieve = 1,
+    Displayed = 2,
+}
+
 public class AchievementList : MonoBehaviour
 {
     public static AchievementList Instance { get; private set; }
 
-    public enum statues
-    {
-        NotAchieve = 0,
-        Achieve = 1,
-        Displayed = 2,
-    }
-
     public statues[] Achievmenetlist = new statues[8];
-
+    
     void Start()
     {
         for (int i = 0; i < Achievmenetlist.Length; i++)
@@ -24,6 +24,8 @@ public class AchievementList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.Q))
+            Achievmenetlist[0] = statues.Achieve;
         if (GameInstance.Instance.DeadEmployee == 100 && 
             Achievmenetlist[0] == statues.NotAchieve)
             Achievmenetlist[0] = statues.Achieve;           //杀人如麻

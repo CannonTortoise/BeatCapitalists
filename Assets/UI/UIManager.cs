@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject canvas;
     private GameObject scrollbar;
+    public Text AchievementText;
+    public Text DescriptionText;
     private int phase;
 
     private Animator Phase01;
@@ -36,6 +38,8 @@ public class UIManager : MonoBehaviour
         Phase02 = GameObject.Find("Phase02").GetComponent<Animator>();
         Phase03 = GameObject.Find("Phase03").GetComponent<Animator>();
         Phase04 = GameObject.Find("Phase04").GetComponent<Animator>();
+        AchievementText = GameObject.Find("AchieveName").GetComponent<Text>();
+        DescriptionText = GameObject.Find("Description").GetComponent<Text>();
 
     }
     public void Exit()
@@ -45,7 +49,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         float money = GameInstance.Instance.Money;
-        int[] levelMoney = { 6000, 15000, 32000, 72000 };
+        int[] levelMoney = { 6000, 15000, 36000, 72000 };
         float process;
         if (money <= levelMoney[0])
             process = 0.25f * money / levelMoney[0];
@@ -99,14 +103,20 @@ public class UIManager : MonoBehaviour
             Phase04.SetBool("IfGlow", true);
         }
 
-        if (Input.GetKey(KeyCode.P))
+        for(int i = 0; i < (AchievementList.Instance.Achievmenetlist.Length - 1); i++)
         {
-            IfAchievement = true;
-        }
-        if (IfAchievement == true)
-        {
-            PlayAnim(AchievementAnimator);
-            IfAchievement = false;
+            if (AchievementList.Instance.Achievmenetlist[i] == statues.Achieve)
+            {
+                AchievementText.text = Achievement[i];
+                DescriptionText.text = Description[i];
+                IfAchievement = true;
+            }
+            if (IfAchievement == true)
+            {
+                PlayAnim(AchievementAnimator);
+                AchievementList.Instance.Achievmenetlist[i] = statues.Displayed;
+                IfAchievement = false;
+            }
         }
     }
     public void Ringclicked()
