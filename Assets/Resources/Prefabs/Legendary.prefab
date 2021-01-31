@@ -103,6 +103,7 @@ MonoBehaviour:
   productivity: 5
   ability: 59
   moveSpeed: 5
+  DissolveMT: {fileID: 2100000, guid: fc9e2b88670c0a741bd51be82e0a4f05, type: 2}
   isWorking: 0
   seat: 0
   FillHealthbar: {fileID: 6514486236711503043}
