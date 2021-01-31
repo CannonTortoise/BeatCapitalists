@@ -20,12 +20,14 @@ public class Pause : MonoBehaviour
 
     void Update()
     {
+        Time.timeScale = 0;
         for (int i = 0; i < (AchievementList.Instance.Achievmenetlist.Length - 1); i++)
         {
-            if (AchievementList.Instance.Achievmenetlist[i] == statues.Achieve)
+            if (AchievementList.Instance.Achievmenetlist[i] == statues.Displayed)
             {
                 Color z = Textboxes[i].color;
                 z.a = 1.0f;
+                Textboxes[i].color = z;
             }
         }
     }
@@ -33,6 +35,7 @@ public class Pause : MonoBehaviour
     public void ResumeGame()
     {
         this.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void BackToMain()
