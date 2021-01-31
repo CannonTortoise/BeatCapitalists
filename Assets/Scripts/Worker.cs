@@ -38,6 +38,7 @@ public class Worker : MonoBehaviour
     public Image FillHealthbar; 
     public Image BorderHealthbar;
     public Image HighlightHealthbar;
+    public Text MoneyText;
 
     private GameObject coinPrefab;
     private GameObject ghostPrefab;
@@ -213,6 +214,8 @@ public class Worker : MonoBehaviour
         HighlightHealthbar.fillAmount = (float)(currentHP / HP);
 
         GameObject coin = Instantiate(coinPrefab, transform.position + new Vector3(0.08f, 0.5f,0), new Quaternion(),transform);
+        MoneyText.text = "+" + addingmoney;
+
         StartCoroutine(DestroyCoin(coin));
         SoundEffectManager.playSound(4);
 
@@ -260,8 +263,12 @@ public class Worker : MonoBehaviour
 
     IEnumerator DestroyCoin(GameObject coin)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
+        MoneyText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.8f);
         Destroy(coin);
+        MoneyText.gameObject.SetActive(false);
     }
 
     IEnumerator DestroyBhost(GameObject ghost)
