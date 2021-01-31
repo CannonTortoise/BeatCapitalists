@@ -35,16 +35,16 @@ public class AchievementList : MonoBehaviour
         if (GameInstance.Instance.ifachievedHookCount &&
             Achievmenetlist[2] == statues.NotAchieve)
             Achievmenetlist[2] = statues.Achieve;           //钩无虚发
-        if (GameInstance.Instance.level == 1 &&
+        if (GameInstance.Instance.level == 2 &&
             Achievmenetlist[3] == statues.NotAchieve)
             Achievmenetlist[3] = statues.Achieve;           //初入职场
-        if (GameInstance.Instance.level == 2 && 
+        if (GameInstance.Instance.level == 3 && 
             Achievmenetlist[4] == statues.NotAchieve)
             Achievmenetlist[4] = statues.Achieve;           //牛刀小试
-        if (GameInstance.Instance.level == 3 &&
+        if (GameInstance.Instance.level == 4 &&
             Achievmenetlist[5] == statues.NotAchieve)
             Achievmenetlist[5] = statues.Achieve;           //如鱼得水
-        if (GameInstance.Instance.level == 4 &&
+        if (GameInstance.Instance.level == 5 &&
             Achievmenetlist[6] == statues.NotAchieve)
             Achievmenetlist[6] = statues.Achieve;           //大资本家
         if (GameInstance.Instance.Sogreedy && 

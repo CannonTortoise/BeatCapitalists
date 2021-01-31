@@ -36,6 +36,7 @@ public class GameInstance : MonoBehaviour
 
     [Header("GameObjects")]
     public GameObject[] CloseWorkSpaces;
+    public GameObject PauseMenu;
 
 
     void Awake()
@@ -63,9 +64,12 @@ public class GameInstance : MonoBehaviour
         minutes = ((int)(LevelTime - t) / 60).ToString();
         seconds = ((int)(LevelTime - t) % 60).ToString();
         Money = Mathf.Round(Money * 100f) / 100f;                   //round up to 2 decimal, in case of n.9999
-        
-        
-        
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseMenu.SetActive(true);
+        }
+
         if (Time.time - StartTimer > LevelTime) { }
             //bool lose = true;
     }
