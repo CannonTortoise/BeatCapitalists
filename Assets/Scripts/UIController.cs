@@ -20,9 +20,9 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        goalText.text = "当前目标：" + GameInstance.Instance.LevelMoney;
-        moneyText.text = "当前金币：" + GameInstance.Instance.Money;
-        timeText.text = "剩余时间：" + Mathf.Ceil(GameInstance.Instance.LevelTime - GameInstance.Instance.StartTimer);
-        strengthText.text = "当前强度：" + strengthButtonText[WorkersController.Instance.WorkStrength].text;
+        goalText.text = "" + GameInstance.Instance.LevelMoney;
+        moneyText.text = "" + GameInstance.Instance.Money;
+        timeText.text = "" + GameInstance.Instance.minutes + ":" + GameInstance.Instance.seconds;
+        strengthText.text = "" + strengthButtonText[WorkersController.Instance.WorkStrength].text;
     }
 }

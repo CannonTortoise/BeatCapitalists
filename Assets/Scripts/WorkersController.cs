@@ -11,9 +11,9 @@ public class WorkersController : MonoBehaviour
     [Header("Basic Settings")]
     public int initNum = 10;
     public float moveSpeed = 1f;
-    public double DefaultDamage = 5;                                //伤害值
+    public float DefaultDamage = 5;                                //伤害值
     public int WorkStrength = 0;                                    //0 = 955, 1 = 996, 2 = 007
-    public double FinalDamage;
+    public float FinalDamage;
     //public int CurrentEmployee = 0;
 
     [Header("Class Settings")]
@@ -145,7 +145,7 @@ public class WorkersController : MonoBehaviour
 
     public void UpdateDamage()
     {
-        FinalDamage = 2.5 * WorkStrength + DefaultDamage;
+        FinalDamage = 2.5f * WorkStrength + DefaultDamage;
     }
 
     private void OnDrawGizmos()
