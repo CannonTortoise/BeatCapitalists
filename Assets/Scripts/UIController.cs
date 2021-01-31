@@ -10,6 +10,9 @@ public class UIController : MonoBehaviour
     public Text timeText;
     public Text strengthText;
     public Text[] strengthButtonText;
+    public Text deathText;
+    public Image strengthUI;
+    public Sprite[] strengthSprites;
 
     // Start is called before the first frame update
     void Start()
@@ -24,5 +27,7 @@ public class UIController : MonoBehaviour
         moneyText.text = "" + GameInstance.Instance.Money;
         timeText.text = "" + GameInstance.Instance.minutes + ":" + GameInstance.Instance.seconds;
         strengthText.text = "" + strengthButtonText[WorkersController.Instance.WorkStrength].text;
+        deathText.text = "" + GameInstance.Instance.DeadEmployee;
+        strengthUI.sprite = strengthSprites[WorkersController.Instance.WorkStrength];
     }
 }

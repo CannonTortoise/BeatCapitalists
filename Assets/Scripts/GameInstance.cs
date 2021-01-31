@@ -58,9 +58,9 @@ public class GameInstance : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey("space"))
+        if (Input.GetKeyDown("space"))
         {
-            Money +=2000;
+            Money += 1000;
         }
         checklevel();
         float t = Time.time - StartTimer;

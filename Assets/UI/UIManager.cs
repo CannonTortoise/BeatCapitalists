@@ -93,27 +93,27 @@ public class UIManager : MonoBehaviour
         //    Phase03.SetBool("IfGlow", true);
         //}
         #endregion
+        
         if (process >= 0.25f && phase == 0)
-            if (process >= 0.25f && phase == 0)
-            {
-                phase = 1;
-                Phase01.SetBool("IfGlow", true);
-            }
-            else if (process >= 0.5f && phase == 1)
-            {
-                phase = 2;
-                Phase02.SetBool("IfGlow", true);
-            }
-            else if (process >= 0.75f && phase == 2)
-            {
-                phase = 3;
-                Phase03.SetBool("IfGlow", true);
-            }
-            else if (process >= 1f && phase == 3)
-            {
-                phase = 4;
-                Phase04.SetBool("IfGlow", true);
-            }
+        {
+            phase = 1;
+            Phase01.SetBool("IfGlow", true);
+        }
+        else if (process >= 0.5f && phase == 1)
+        {
+            phase = 2;
+            Phase02.SetBool("IfGlow", true);
+        }
+        else if (process >= 0.75f && phase == 2)
+        {
+            phase = 3;
+            Phase03.SetBool("IfGlow", true);
+        }
+        else if (process >= 1f && phase == 3)
+        {
+            phase = 4;
+            Phase04.SetBool("IfGlow", true);
+        }
 
         for (int i = 0; i < (AchievementList.Instance.Achievmenetlist.Length - 1); i++)
         {
